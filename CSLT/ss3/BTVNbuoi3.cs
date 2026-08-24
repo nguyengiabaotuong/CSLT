@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -17,44 +18,77 @@ internal class BTVNbuoi3
             int a = int.Parse(Console.ReadLine());
             Console.Write("Nhap chi so dien moi: ");
             int b = int.Parse(Console.ReadLine());
-            if a <= b
-                {
+            if (a <= b)
+            {
                 int c = b - a;
-                if c < 50
+                double T = 0;
+                if (c < 50)
                     {
-                    double T = c * 1.806;
-                    return;
+                    T = c * 1.806;
+                    }
+                else if (c < 100)
+                    {
+                    T = 50 * 1.806 + (c - 50) * 1.866;
                 }
-                else if c < 100
+                else if (c < 200)
                     {
-                    double T = 50 * 1.806 + (c - 50) * 1.866;
+                    T = 50 * 1.806 + 50 * 1.866 + (c - 100) * 2.167;
                 }
-                else if c < 200
+                else if (c < 300)
                     {
-                    double T = 50 * 1.806 + 50 * 1.866 + (c - 100) * 2.167;
-                }
-                else if c < 300
-                    {
-                    double T = 50 * 1.806 + 50 * 1.866 + 100 * 2.167 + (c - 200) * 2.729;
+                    T = 50 * 1.806 + 50 * 1.866 + 100 * 2.167 + (c - 200) * 2.729;
                 }
                 else
                 {
-                    double T = 50 * 1.806 + 50 * 1.866 + 100 * 2.167 + 100 * 2.729 + (c - 300) * 3.05;
+                    T = 50 * 1.806 + 50 * 1.866 + 100 * 2.167 + 100 * 2.729 + (c - 300) * 3.05;
                 }
+                Console.WriteLine($"So dien tieu thu: {c}");
+                Console.WriteLine($"Tien dien chua thue: {T:F5}");
+                Console.WriteLine($"Thue Vat: {T*0.08:F5}");
+                Console.WriteLine($"Tong thanh toan: {T * 1.08:F5}");
             }
             else
             {
-                break;
+                return;
             }
+            
+            
         }
-        /*static void bai2()
+        static void bai2()
         {
             //Bài 2: Hệ Thống Theo Dõi Chỉ Số BMI & Đánh Giá Tình Trạng Sức Khỏe
             //Tình huống thực tế: Một ứng dụng theo dõi sức khỏe cá nhân cần tính chỉ số khối cơ thể(BMI -Body Mass
             //Index) dựa trên chiều cao và cân nặng do người dùng cung cấp, đồng thời đưa ra lời khuyên về cân nặng lý
             //tưởng
+            Console.Write("Nhap can nang: ");
+            float a = float.Parse(Console.ReadLine());
+            Console.Write("Nhap chieu cao: ");
+            float b = float.Parse(Console.ReadLine());
+            double BMI = a / Math.Pow(b, 2);
+            string c = "";
+            if (BMI<18.5)
+            {
+                c = "Gay (Thieu can)";
+            }    
+            else if (BMI<23)
+            {
+                c = "Binh thuong (Ly tuong)";
+            }
+            else if (BMI<25)
+            {
+                c = "Thua can (Tien beo phi";
+            }
+            else 
+            {
+                c = "Beo phi";
+            }
+            double min = 18.5 * Math.Pow(b, 2);
+            double max = 22.9 * Math.Pow(b, 2);
+            Console.WriteLine($"Chi so BMI cua ban: {BMI:F2}");
+            Console.WriteLine($"Phan loai suc khoe: {c}");
+            Console.WriteLine($"Khuyen dung: Can nang ly tuong cua ban nen tu {min:F2} kg cho den {max:F2} kg");
         }
-        static void bai3()
+        /*static void bai3()
         {
             //Bài 3: Ứng Dụng Quy Đổi Tiền Tệ Ngoại Tệ Đa Tỷ Giá Ngân Hàng
             //Tình huống thực tế: Một quầy đổi tiền tại sân bay cần ứng dụng tính toán nhanh số tiền khách hàng nhận
@@ -135,7 +169,7 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
         }*/
-        bai1()
+        bai2();
         /*bai2()
         bai3()
         bai4()
