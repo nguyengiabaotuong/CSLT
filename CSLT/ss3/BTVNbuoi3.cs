@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
+enum CurrencyType
+{
+                USD=1,
+                EUR=2,
+                JPY=3,
+                GBP=4
+}
 internal class BTVNbuoi3
 {
+  
     public static void Main()
     {
         static void bai1()
@@ -88,14 +95,39 @@ internal class BTVNbuoi3
             Console.WriteLine($"Phan loai suc khoe: {c}");
             Console.WriteLine($"Khuyen dung: Can nang ly tuong cua ban nen tu {min:F2} kg cho den {max:F2} kg");
         }
-        /*static void bai3()
+        static void bai3()
         {
             //Bài 3: Ứng Dụng Quy Đổi Tiền Tệ Ngoại Tệ Đa Tỷ Giá Ngân Hàng
             //Tình huống thực tế: Một quầy đổi tiền tại sân bay cần ứng dụng tính toán nhanh số tiền khách hàng nhận
             //được khi đổi từ Việt Nam Đồng(VND) sang các loại ngoại tệ phổ biến(USD, EUR, JPY, GBP) có tính phí dịch
             //vụ.
+            Console.Write("Nhap so tien VND: ");
+            decimal a = decimal.Parse(Console.ReadLine());
+            decimal tygia = 0;
+            Console.Write("Chon ngoai te ( 1-USD 2-EUR 3-JPY, 4-GBP ): ");
+            int b = int.Parse(Console.ReadLine());
+            CurrencyType choice = (CurrencyType)b;
+            switch (choice)
+            {
+                case CurrencyType.USD:
+                    tygia = 25400m;
+                    break; 
+
+                case CurrencyType.EUR:
+                    tygia = 27200m;
+                    break;
+
+                case CurrencyType.JPY:
+                    tygia = 165m;
+                    break;
+
+                default:
+                    tygia = 32100m;
+                    break;
+            }
+            Console.WriteLine($"Phi dich vu: {a*0.005m:F3}");
         }
-        static void bai4()
+        /*static void bai4()
         {
             //Bài 4: Tính Tuổi Chính Xác &Đếm Ngược Ngày Sinh Nhật
             //Tình huống thực tế: Hệ thống chăm sóc khách hàng của một công ty bán lẻ cần tự động tính tuổi chính xác
@@ -169,7 +201,7 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
         }*/
-        bai2();
+        bai3();
         /*bai2()
         bai3()
         bai4()
