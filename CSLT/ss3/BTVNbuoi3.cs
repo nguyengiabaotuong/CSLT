@@ -13,7 +13,7 @@ enum CurrencyType
 internal class BTVNbuoi3
 {
   
-    public static void Main()
+    public static void Main3()
     {
         static void bai1()
         {
