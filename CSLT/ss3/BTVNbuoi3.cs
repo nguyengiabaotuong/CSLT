@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 enum CurrencyType
 {
@@ -10,11 +12,38 @@ enum CurrencyType
                 JPY=3,
                 GBP=4
 }
+enum HocLuc
+{
+    XuatSac,
+    Kha,
+    TrungBinh,
+    Yeu,
+    Kem
+}
 internal class BTVNbuoi3
 {
   
-    public static void Main3()
+    public static void Main()
     {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        Console.InputEncoding = System.Text.Encoding.UTF8;
+        static string XoaDau(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+            // Dòng này trả kết quả ra ngoài và xử lý nốt chữ đ/Đ
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC)
+                .Replace("đ", "d").Replace("Đ", "D");
+        }
         static void bai1()
         {
             //Bài 1: Tính Tiền Điện Sinh Hoạt Gia Đình Theo Bậc Thang(EVN)
@@ -104,6 +133,7 @@ internal class BTVNbuoi3
             Console.Write("Nhap so tien VND: ");
             decimal a = decimal.Parse(Console.ReadLine());
             decimal tygia = 0;
+            string ten = "";
             Console.Write("Chon ngoai te ( 1-USD 2-EUR 3-JPY, 4-GBP ): ");
             int b = int.Parse(Console.ReadLine());
             CurrencyType choice = (CurrencyType)b;
@@ -111,33 +141,124 @@ internal class BTVNbuoi3
             {
                 case CurrencyType.USD:
                     tygia = 25400m;
+                    ten = "USD";
                     break; 
 
                 case CurrencyType.EUR:
                     tygia = 27200m;
+                    ten = "EUR";
                     break;
 
                 case CurrencyType.JPY:
                     tygia = 165m;
+                    ten = "JPY";
+                    break;
+                case CurrencyType.GBP:
+                    tygia = 32100m;
+                    ten = "GBP";
                     break;
 
                 default:
-                    tygia = 32100m;
-                    break;
+                    Console.WriteLine("Lua chon khong hop le");
+                    return;
             }
             Console.WriteLine($"Phi dich vu: {a*0.005m:F3}");
+            Console.WriteLine($"So tien VNĐ thuc te doi: {a * 0.995m:F3}");
+            Console.WriteLine($"So tien {ten} nhan duoc: {a / tygia:F3}");
         }
-        /*static void bai4()
+        static void bai4()
         {
             //Bài 4: Tính Tuổi Chính Xác &Đếm Ngược Ngày Sinh Nhật
             //Tình huống thực tế: Hệ thống chăm sóc khách hàng của một công ty bán lẻ cần tự động tính tuổi chính xác
             //của khách hàng và đếm số ngày còn lại đến sinh nhật tiếp theo để gửi voucher ưu đãi
-        }
+            Console.Write("Nhap ngay sinh (dd/MM/yyyy): ");
+            string Ngaysinh = Console.ReadLine();
+            if (DateTime.TryParseExact(Ngaysinh, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime ngaysinh))
+            {
+                DateTime homnay = DateTime.Now.Date;
+                int tuoi = homnay.Year - ngaysinh.Year;
+                if (homnay.Month < ngaysinh.Month || (homnay.Month == ngaysinh.Month && homnay.Day < ngaysinh.Day))
+                {
+                    tuoi--;
+                }
+                TimeSpan thoigiandasong = homnay - ngaysinh.Date;
+                int tongsongay = thoigiandasong.Days;
+                DateTime sinhnhatnamnay = new DateTime(homnay.Year, ngaysinh.Month, ngaysinh.Day);
+                DateTime sinhnhattieptheo = sinhnhatnamnay;
+                if (sinhnhatnamnay < homnay)
+                {
+                    sinhnhattieptheo = sinhnhatnamnay.AddYears(1);
+                }
+                TimeSpan thoigianchodoi = sinhnhattieptheo - homnay;
+                int songayconlai = thoigianchodoi.Days;
+                Console.WriteLine($"Tuoi hien tai: {tuoi} tuoi");
+                Console.WriteLine($"Ban da song tong cong: {tongsongay:N0} ngay");
+                if (songayconlai == 0)
+                {
+                    Console.WriteLine("Hom nay la sinh nhat ban!");
+                }
+                else
+                {
+                    Console.WriteLine($"Sinh nhat tiep theo con: {songayconlai} ngay nua");
+                }
+            }
+            else
+            {
+                // Xử lý khi người dùng nhập sai định dạng
+                Console.WriteLine("Loi: Dinh dang ngay sinh ko hop le. Vui long nhap theo chuan dd/MM/yyyy.");
+            }
+        }   
         static void bai5()
         {
             //Bài 5: Quản Lý Điểm Học Phần & Quy Đổi Thang Điểm GPA(4.0)
             //Tình huống thực tế: Hệ thống quản lý đào tạo đại học cần tính điểm trung bình tín chỉ(GPA) học kỳ cho
             //sinh viên dựa trên điểm số các môn học và quy đổi sang thang điểm chữ(A, B, C, D, F) cùng thang điểm 4
+            Console.Write("Nhap tin chi C# (0-4): ");
+            int tcCsharp = int.Parse(Console.ReadLine());
+            Console.Write("Nhap diem C# (0-10): ");
+            double diemCsharp = double.Parse(Console.ReadLine());
+            Console.Write("Nhap tin chi Toan (0-4): ");
+            int tcToan = int.Parse(Console.ReadLine());
+            Console.Write("Nhap diem Toan (0-10): ");
+            double diemToan = double.Parse(Console.ReadLine());
+            Console.Write("Nhap tin chi TA (0-4): ");
+            int tcTA = int.Parse(Console.ReadLine());
+            Console.Write("Nhap diem TA (0-10): ");
+            double diemTA = double.Parse(Console.ReadLine());
+            if (tcCsharp < 0 || tcCsharp > 4 || diemCsharp < 0 || diemCsharp > 10 || tcToan < 0 || tcToan > 4 || diemToan < 0 || diemToan > 10 || tcTA < 0 || tcTA > 4 || diemTA < 0 || diemTA > 10)
+            {
+                Console.WriteLine("Loi: Điem phai tu 0-10 va tin chi tu 0-4. Vui long chay lai!");
+                return; 
+            }
+            int tongtinchi = tcCsharp + tcToan + tcTA;
+            double diemTB10 = (diemCsharp * tcCsharp + diemToan * tcToan + diemTA * tcTA) / tongtinchi;
+            string diemChu = "";
+            double diemGPA = 0;
+            HocLuc xepLoai; 
+            if (diemTB10 >= 8.5)
+            {
+                diemChu = "A"; diemGPA = 4.0; xepLoai = HocLuc.XuatSac;
+            }
+            else if (diemTB10 >= 7.0)
+            {
+                diemChu = "B"; diemGPA = 3.0; xepLoai = HocLuc.Kha;
+            }
+            else if (diemTB10 >= 5.5)
+            {
+                diemChu = "C"; diemGPA = 2.0; xepLoai = HocLuc.TrungBinh;
+            }
+            else if (diemTB10 >= 4.0)
+            {
+                diemChu = "D"; diemGPA = 1.0; xepLoai = HocLuc.Yeu;
+            }
+            else
+            {
+                diemChu = "F"; diemGPA = 0.0; xepLoai = HocLuc.Kem;
+            }
+            Console.WriteLine($"Diem TB thang 10: {diemTB10:F2}");
+            Console.WriteLine($"Diem chu quy doi: {diemChu}");
+            Console.WriteLine($"Diem GPA thang 4: {diemGPA:F1}");
+            Console.WriteLine($"Xep loai hoc luc: {xepLoai}"); 
         }
         static void bai6()
         {
@@ -145,8 +266,35 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Bộ phận Nhân sự(HR) cần một công cụ xử lý dữ liệu thô nhập vào từ biểu mẫu đăng
             //ký.Họ tên nhập vào thường bị lỗi thừa khoảng trắng, hoa thường lộn xộn.Cần chuẩn hóa tên và tạo tài
             //khoản công ty
+            Console.Write("Nhap ho va ten tho: ");
+            string name = Console.ReadLine();
+            string cleanname = name.Trim();
+            string[] mang = name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < mang.Length; i++)
+            {
+                string tuHienTai = mang[i].ToLower();
+                mang[i] = char.ToUpper(tuHienTai[0]) + tuHienTai.Substring(1);
+            }
+            string hoten = string.Join(" ", mang);
+            string ho = mang[0];
+            string tenChinh = mang[mang.Length - 1];
+            string tenDem = "";
+            string tenDemLienNhau = "";
+
+            if (mang.Length > 2)
+            {
+                tenDem = string.Join(" ", mang, 1, mang.Length - 2);
+                tenDemLienNhau = string.Join("", mang, 1, mang.Length - 2);
+            }
+            string RawUsername = tenChinh + "." + ho + tenDemLienNhau;
+            string Username = XoaDau(RawUsername).ToLower();
+            string email = Username + "@company.edu.vn";
+            Console.WriteLine($"Ho ten chuan hoa: {hoten}");
+            Console.WriteLine($"Ho: {ho} | Ten dem: {tenDem} | Ten: {tenChinh}");
+            Console.WriteLine($"Username tao tu dong: {Username}");
+            Console.WriteLine($"Email cap phat: {email}");
         }
-        static void bai7()
+        /*static void bai7()
         {
             //Bài 7: Lập Kế Hoạch Chi Phí Nhiên Liệu & Chia Sẻ Chuyến Đi(Car - pooling)
             //Tình huống thực tế: Một nhóm bạn lên kế hoạch đi phượt bằng xe ô tô cá nhân. Họ cần một máy tính bỏ
@@ -201,21 +349,7 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
         }*/
-        bai3();
-        /*bai2()
-        bai3()
-        bai4()
-        bai5()
-        bai6()
-        bai7()
-        bai8()
-        bai9()
-        bai10()
-        bai11()
-        bai12()
-        bai13()
-        bai14()
-        bai15()*/
+        bai6();
     }
 }
 
