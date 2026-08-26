@@ -294,13 +294,28 @@ internal class BTVNbuoi3
             Console.WriteLine($"Username tao tu dong: {Username}");
             Console.WriteLine($"Email cap phat: {email}");
         }
-        /*static void bai7()
+        static void bai7()
         {
             //Bài 7: Lập Kế Hoạch Chi Phí Nhiên Liệu & Chia Sẻ Chuyến Đi(Car - pooling)
             //Tình huống thực tế: Một nhóm bạn lên kế hoạch đi phượt bằng xe ô tô cá nhân. Họ cần một máy tính bỏ
             //túi để ước tính tổng lượng nhiên liệu tiêu thụ, tổng chi phí xăng dầu và chia đều cho từng thành viên.
+            Console.Write("Nhap khoang cach chuyen di (km): ");
+            double dis = double.Parse(Console.ReadLine());
+            Console.Write("Nhap muc tieu thu nhien lieu trung binh cua xe (lit/100km): ");
+            double consume = double.Parse(Console.ReadLine());
+            Console.Write("Nhap gia xang hien tai (VND/lit): ");
+            decimal price = decimal.Parse(Console.ReadLine());
+            Console.Write("Nhap so luong nguoi tham gia chuyen di: ");
+            double songuoi = int.Parse(Console.ReadLine());
+            double solit = (dis / 100) * consume;
+            decimal chiphi = (decimal)solit * price;
+            decimal chiphi1ng = chiphi / (decimal)songuoi;
+            decimal chiphithuc = Math.Ceiling(chiphi1ng / 1000m) * 1000m;
+            Console.WriteLine($"Tong nhien lieu tieu thu: {solit} lit");
+            Console.WriteLine($"Tong chi phi: {chiphi} VND");
+            Console.WriteLine($"Chi phi moi nguoi: {chiphithuc} VND");
         }
-        static void bai8()
+        /*static void bai8()
         {
             //Bài 8: Kiểm Tra Mã Xác Thực OTP &Quản Lý Thời Gian Hiệu Lực
             //Tình huống thực tế: Hệ thống bảo mật ngân hàng gửi mã xác thực OTP gồm 6 chữ số đến điện thoại người
@@ -349,7 +364,7 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
         }*/
-        bai6();
+        bai7();
     }
 }
 
