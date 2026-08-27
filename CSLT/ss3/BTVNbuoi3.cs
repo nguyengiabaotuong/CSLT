@@ -267,8 +267,7 @@ internal class BTVNbuoi3
             //ký.Họ tên nhập vào thường bị lỗi thừa khoảng trắng, hoa thường lộn xộn.Cần chuẩn hóa tên và tạo tài
             //khoản công ty
             Console.Write("Nhap ho va ten tho: ");
-            string name = Console.ReadLine();
-            string cleanname = name.Trim();
+            string name = Console.ReadLine().Trim();
             string[] mang = name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < mang.Length; i++)
             {
@@ -315,13 +314,40 @@ internal class BTVNbuoi3
             Console.WriteLine($"Tong chi phi: {chiphi} VND");
             Console.WriteLine($"Chi phi moi nguoi: {chiphithuc} VND");
         }
-        /*static void bai8()
+        static void bai8()
         {
             //Bài 8: Kiểm Tra Mã Xác Thực OTP &Quản Lý Thời Gian Hiệu Lực
             //Tình huống thực tế: Hệ thống bảo mật ngân hàng gửi mã xác thực OTP gồm 6 chữ số đến điện thoại người
             //dùng.Mã OTP chỉ có hiệu lực trong vòng 5 phút(300 giây) kể từ thời điểm phát hành.
+            string Otp = "839201";
+            DateTime tgtao = DateTime.Now;
+            Console.Write("Ma OTP nhan duoc: ");
+            string InputOtp = Console.ReadLine().Trim();
+            Console.Write("Thoi gian troi qua: ");
+            int tgtroi = int.Parse(Console.ReadLine());
+            DateTime Time = tgtao.AddSeconds(tgtroi);
+            // Lớp 1: Kiểm tra định dạng (Đúng 6 ký tự VÀ toàn bộ phải là số)
+            // Lệnh int.TryParse(..., out _) sẽ kiểm tra xem chuỗi có ép thành số được không. 
+            // Ký hiệu "out _" nghĩa là ta chỉ cần biết kết quả Đúng/Sai chứ không cần lưu lại giá trị số đó.
+            if (InputOtp.Length != 6 || !int.TryParse(InputOtp, out _))
+            {
+                Console.WriteLine("Trang thai xac thuc: LOI - Dinh dang OTP khong hop le (Phai bao gom 6 chu so).");
+                return; 
+            }
+            if (InputOtp != Otp)
+            {
+                Console.WriteLine("Trang thai xac thuc: LOI - Ma OTP khong chinh xac.");
+                return;
+            }
+            TimeSpan timeDif = Time - tgtao;
+            if (timeDif.TotalSeconds > 300)
+            {
+                Console.WriteLine("Trang thai xac thuc: LOI - Ma OTP da het han. Vui long yeu cau ma moi.");
+                return;
+            }
+            Console.WriteLine("Trang thai xac thuc: THANH CONG - Giao dich da duoc phe duyet.");
         }
-        static void bai9()
+        /*static void bai9()
         {
             //Bài 9: Máy Tính Lương Gross -Net & Thuế TNCN Nhân Viên
             //Tình huống thực tế: Phòng kế toán cần phần mềm tự động tính tiền lương thực nhận(Net Salary) từ lương
