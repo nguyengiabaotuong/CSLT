@@ -12,9 +12,9 @@ internal class BTVNbuoi4
         {
             Console.Write("Nhap he so a: ");
             double a = double.Parse(Console.ReadLine());
-            Console.Write("Nhập he so b: ");
+            Console.Write("Nhap he so b: ");
             double b = double.Parse(Console.ReadLine());
-            Console.Write("Nhập he so c: ");
+            Console.Write("Nhap he so c: ");
             double c = double.Parse(Console.ReadLine());
             if (a == 0)
             {
