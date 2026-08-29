@@ -23,7 +23,7 @@ enum HocLuc
 internal class BTVNbuoi3
 {
   
-    public static void Main4()
+    public static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.InputEncoding = System.Text.Encoding.UTF8;
@@ -347,11 +347,36 @@ internal class BTVNbuoi3
             }
             Console.WriteLine("Trang thai xac thuc: THANH CONG - Giao dich da duoc phe duyet.");
         }
-        /*static void bai9()
+        static void bai9()
         {
             //Bài 9: Máy Tính Lương Gross -Net & Thuế TNCN Nhân Viên
             //Tình huống thực tế: Phòng kế toán cần phần mềm tự động tính tiền lương thực nhận(Net Salary) từ lương
             //thỏa thuận(Gross Salary) sau khi trừ các khoản bảo hiểm bắt buộc và Thuế thu nhập cá nhân(TNCN)
+            Console.Write("Luong Gross (VNĐ): ");
+            decimal gross = decimal.Parse(Console.ReadLine());
+            Console.Write("So nguoi phu thuoc: ");
+            int phuthuoc = int.Parse(Console.ReadLine());
+            decimal baohiem = gross * 0.105m;
+            decimal giamtrubanthan = 11000000m;
+            decimal giamtruphuthuoc = phuthuoc * 4400000m;
+            decimal thuNhapChiuThue = gross - baohiem - giamtrubanthan - giamtruphuthuoc;
+            if (thuNhapChiuThue < 0)
+                thuNhapChiuThue = 0;
+            decimal thueTNCN = 0;
+            if (thuNhapChiuThue > 0)
+            {
+                if (thuNhapChiuThue <= 5000000m)
+                    thueTNCN = thuNhapChiuThue * 0.05m;
+                else if (thuNhapChiuThue <= 10000000m)
+                    thueTNCN = (5000000m * 0.05m) + ((thuNhapChiuThue - 5000000m) * 0.10m);
+                else 
+                    thueTNCN = (5000000m * 0.05m) + (5000000m * 0.10m) + ((thuNhapChiuThue - 10000000m) * 0.15m);
+            }
+            decimal net = gross - baohiem - thueTNCN;
+            Console.WriteLine($"Giam tru bao hiem (10.5%): {baohiem:N0} VNĐ");
+            Console.WriteLine($"Thu nhap chiu thue: {thuNhapChiuThue:N0} VNĐ");
+            Console.WriteLine($"Thue TNCN phai nop: {thueTNCN:N0} VNĐ");
+            Console.WriteLine($"LUONG NET THUC NHAN: {net:N0} VNĐ");
         }
         static void bai10()
         {
@@ -360,7 +385,7 @@ internal class BTVNbuoi3
             //chưa được cập nhật số lượng(Quantity = null) hoặc chưa có ngày dự kiến nhập hàng tiếp theo(RestockDate
             //= null).
         }
-        static void bai11()
+        /*static void bai11()
         {
             //Bài 11: Tính Lãi Suất Tiết Kiệm Ngân Hàng & Dự Toán Tích Lũy
             //Tình huống thực tế: Khách hàng muốn gửi tiết kiệm tại ngân hàng.Chương trình cần hỗ trợ tính toán tổng
@@ -390,7 +415,7 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
         }*/
-        bai7();
+        bai9();
     }
 }
 

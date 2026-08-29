@@ -4,7 +4,7 @@ using System.Text;
 
 internal class BTVNbuoi4
 {
-    public static void Main()
+    public static void Main4()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.InputEncoding = System.Text.Encoding.UTF8;
