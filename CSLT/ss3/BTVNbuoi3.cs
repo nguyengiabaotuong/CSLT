@@ -20,10 +20,17 @@ enum HocLuc
     Yeu,
     Kem
 }
+enum StockStatus
+{
+    OutOfStock,   
+    LowStock,     
+    InStock,      
+    Discontinued  
+}
 internal class BTVNbuoi3
 {
   
-    public static void Main()
+    public static void Main5()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.InputEncoding = System.Text.Encoding.UTF8;
@@ -384,6 +391,54 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Trong phần mềm quản lý kho hàng e-Commerce, một số mặt hàng mới nhập có thể
             //chưa được cập nhật số lượng(Quantity = null) hoặc chưa có ngày dự kiến nhập hàng tiếp theo(RestockDate
             //= null).
+            string maSP = "KB-09";
+            string tenSP = "Bàn phím Cơ Akko";
+            int? quantity = null;
+            int minThreshold = 10;
+            DateTime? restockDate = null;
+
+            // 2. Xử lý số lượng hiển thị bằng toán tử ??
+            // Nếu quantity null, tự động gán hiển thị bằng 0
+            int hienThiQty = quantity ?? 0;
+
+            // 3. Đánh giá trạng thái kho hàng
+            StockStatus status;
+            if (quantity == null || quantity == 0)
+            {
+                status = StockStatus.OutOfStock;
+            }
+            else if (quantity < minThreshold)
+            {
+                status = StockStatus.LowStock;
+            }
+            else
+            {
+                status = StockStatus.InStock;
+            }
+
+            // 4. Xử lý ngày nhập hàng an toàn bằng ?. và ??
+            // Nếu restockDate có dữ liệu thì ToString, nếu cả cụm phía trước null thì in câu thông báo
+            string ngayNhap = restockDate?.ToString("dd/MM/yyyy") ?? "Chưa có lịch nhập hàng";
+
+            // 5. In kết quả
+            Console.WriteLine("--- OUTPUT ---");
+            Console.WriteLine($"Sản phẩm: {tenSP} (Mã: {maSP})");
+
+            if (quantity == null)
+                Console.WriteLine($"Số lượng hiển thị: {hienThiQty} (Cảnh báo: Dữ liệu trống)");
+            else
+                Console.WriteLine($"Số lượng hiển thị: {hienThiQty}");
+
+            // Dùng switch để in ra tiếng Việt cho đẹp
+            string statusVN = status switch
+            {
+                StockStatus.OutOfStock => "OutOfStock (Hết hàng)",
+                StockStatus.LowStock => "LowStock (Sắp hết hàng)",
+                StockStatus.InStock => "InStock (Còn hàng)",
+                _ => "Không xác định"
+            };
+            Console.WriteLine($"Trạng thái kho: {statusVN}");
+            Console.WriteLine($"Dự kiến nhập hàng: {ngayNhap}");
         }
         /*static void bai11()
         {
