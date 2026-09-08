@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 internal class Btapbuoi5    
 {
-    public static void Main()
+    public static void Main5()
     {
         static void bangcuuchuong()
         {
@@ -155,6 +155,6 @@ internal class Btapbuoi5
             else
                 Console.WriteLine($"Ket qua: {a} khong phai la so nguyen to.");
         }
-        bai6();
+        bai7();
     }
 }

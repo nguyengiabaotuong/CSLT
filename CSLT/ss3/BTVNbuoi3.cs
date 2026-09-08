@@ -30,7 +30,7 @@ enum StockStatus
 internal class BTVNbuoi3
 {
   
-    public static void Main5()
+    public static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.InputEncoding = System.Text.Encoding.UTF8;
@@ -391,16 +391,15 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Trong phần mềm quản lý kho hàng e-Commerce, một số mặt hàng mới nhập có thể
             //chưa được cập nhật số lượng(Quantity = null) hoặc chưa có ngày dự kiến nhập hàng tiếp theo(RestockDate
             //= null).
-            string maSP = "KB-09";
-            string tenSP = "Bàn phím Cơ Akko";
-            int? quantity = null;
+            string ma = "KB-09";
+            string ten = "Ban phim Co Akko";
+            int? quantity = 5;
             int minThreshold = 10;
-            DateTime? restockDate = null;
+            DateTime? restockDate = DateTime.Now.AddDays(7);
 
             // 2. Xử lý số lượng hiển thị bằng toán tử ??
             // Nếu quantity null, tự động gán hiển thị bằng 0
-            int hienThiQty = quantity ?? 0;
-
+            int hienthi = quantity ?? 0;
             // 3. Đánh giá trạng thái kho hàng
             StockStatus status;
             if (quantity == null || quantity == 0)
@@ -418,27 +417,21 @@ internal class BTVNbuoi3
 
             // 4. Xử lý ngày nhập hàng an toàn bằng ?. và ??
             // Nếu restockDate có dữ liệu thì ToString, nếu cả cụm phía trước null thì in câu thông báo
-            string ngayNhap = restockDate?.ToString("dd/MM/yyyy") ?? "Chưa có lịch nhập hàng";
-
-            // 5. In kết quả
-            Console.WriteLine("--- OUTPUT ---");
-            Console.WriteLine($"Sản phẩm: {tenSP} (Mã: {maSP})");
-
+            string ngaynhap = restockDate?.ToString("dd/MM/yyyy") ?? "Chua co lich nhap hang";
+            Console.WriteLine($"San pham: {ten} (Ma: {ma})");
             if (quantity == null)
-                Console.WriteLine($"Số lượng hiển thị: {hienThiQty} (Cảnh báo: Dữ liệu trống)");
+                Console.WriteLine($"So luong hien thi: {hienthi} (Canh bao: Du lieu trong)");
             else
-                Console.WriteLine($"Số lượng hiển thị: {hienThiQty}");
-
-            // Dùng switch để in ra tiếng Việt cho đẹp
+                Console.WriteLine($"So luong hien thi: {hienthi}");
             string statusVN = status switch
             {
-                StockStatus.OutOfStock => "OutOfStock (Hết hàng)",
-                StockStatus.LowStock => "LowStock (Sắp hết hàng)",
-                StockStatus.InStock => "InStock (Còn hàng)",
-                _ => "Không xác định"
+                StockStatus.OutOfStock => "OutOfStock (Het hang)",
+                StockStatus.LowStock => "LowStock (Sap het hang)",
+                StockStatus.InStock => "InStock (Con hang)",
+                _ => "Khong xac dinh"
             };
-            Console.WriteLine($"Trạng thái kho: {statusVN}");
-            Console.WriteLine($"Dự kiến nhập hàng: {ngayNhap}");
+            Console.WriteLine($"Trang thai kho: {statusVN}");
+            Console.WriteLine($"Du kien nhap hang: {ngaynhap}");
         }
         /*static void bai11()
         {
@@ -470,7 +463,7 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
         }*/
-        bai9();
+        bai10();
     }
 }
 
