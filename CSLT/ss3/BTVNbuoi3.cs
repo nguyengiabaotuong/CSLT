@@ -27,6 +27,12 @@ enum StockStatus
     InStock,      
     Discontinued  
 }
+enum VehicleType
+{
+    Motorbike=1,
+    Car=2,
+    Truck=3
+}
 internal class BTVNbuoi3
 {
   
@@ -433,25 +439,152 @@ internal class BTVNbuoi3
             Console.WriteLine($"Trang thai kho: {statusVN}");
             Console.WriteLine($"Du kien nhap hang: {ngaynhap}");
         }
-        /*static void bai11()
+        static void bai11()
         {
             //Bài 11: Tính Lãi Suất Tiết Kiệm Ngân Hàng & Dự Toán Tích Lũy
             //Tình huống thực tế: Khách hàng muốn gửi tiết kiệm tại ngân hàng.Chương trình cần hỗ trợ tính toán tổng
             //số tiền cả gốc lẫn lãi thu được sau kỳ hạn gửi theo 2 phương thức: Lãi đơn và Lãi kép.
+            Console.Write("So tien gui ban dau P (VNĐ): ");
+            decimal P = decimal.Parse(Console.ReadLine());
+            Console.Write("Lai suat (%/nam): ");
+            double r = double.Parse(Console.ReadLine());
+            Console.Write("Ky han gui (thang): ");
+            int n = int.Parse(Console.ReadLine());
+            decimal don = (decimal)((double)P * (r / 100) * (n / 12.0));
+            decimal kep = P * (decimal)(Math.Pow((double)(1+(r/100)/12),n))-P;
+            Console.WriteLine($"Tong tien lai (lai don): {don:N0}");
+            Console.WriteLine($"Tong tien lai (lai kep): {kep:N0}");
+            decimal ss = 0;
+            if (don>kep)
+            {
+                ss = don - kep;
+                Console.WriteLine($"Loi nhuan chenh lech: {ss:N0} VNĐ (Lai don toi uu hon)");
+            }
+            else if (kep>don)
+            {
+                ss = kep - don;
+                Console.WriteLine($"Loi nhuan chenh lech: {ss:N0} VNĐ (Lai kep toi uu hon)");
+            }
+            else Console.WriteLine($"Loi nhuan chenh lech: {ss} VNĐ (Hai phuong thuc bang nhau)");
         }
         static void bai12()
         {
             //Bài 12: Bộ Mã Hóa & Giải Mã Tin Nhắn Mật Mã Caesar(Caesar Cipher)
             //Tình huống thực tế: Trong một ứng dụng trò chuyện bảo mật, các tin nhắn văn bản ngắn cần được mã hóa
             //đơn giản bằng thuật toán Caesar Cipher(dịch chuyển ký tự trong bảng mã ASCII) trước khi lưu trữ.
+            Console.Write("Van ban goc: ");
+            string Text = Console.ReadLine();
+            Console.Write("Khoa dich chuyen (Shift Key k): ");
+            int k = int.Parse(Console.ReadLine());
+            k = k % 26;
+            string encryptedText = "";
+            string decryptedText = "";
+            // 1. BỘ MÃ HÓA (Encoder)
+            // Duyệt qua từng ký tự (char) trong chuỗi văn bản
+            foreach (char c in Text)
+            {
+                if (char.IsUpper(c))
+                {
+                    char newChar = (char)('A' + (c - 'A' + k) % 26);
+                    encryptedText += newChar;
+                }
+                else if (char.IsLower(c)) 
+                {
+                    char newChar = (char)('a' + (c - 'a' + k) % 26);
+                    encryptedText += newChar;
+                }
+                else
+                {
+                    // Nếu là số, dấu cách, dấu câu -> Nối thẳng vào không cần mã hóa
+                    encryptedText += c;
+                }
+            }
+
+            // 2. BỘ GIẢI MÃ (Decoder)
+            int reverseKey = 26 - k;
+            foreach (char c in encryptedText)
+            {
+                if (char.IsUpper(c))
+                {
+                    char newChar = (char)('A' + (c - 'A' + reverseKey) % 26);
+                    decryptedText += newChar;
+                }
+                else if (char.IsLower(c))
+                {
+                    char newChar = (char)('a' + (c - 'a' + reverseKey) % 26);
+                    decryptedText += newChar;
+                }
+                else
+                {
+                    decryptedText += c;
+                }
+            }
+            Console.WriteLine($"Van ban Ma hoa: {encryptedText}");
+            Console.WriteLine($"Van ban Giai ma: {decryptedText}");
         }
         static void bai13()
         {
             //Bài 13: Bãi Đỗ Xe Thông Minh & Tính Phí Gửi Xe Theo Thời Gian
             //Tình huống thực tế: Hệ thống thẻ từ bãi đỗ xe thông minh tự động ghi nhận thời điểm xe vào và xe ra để
             //tính chính xác phí gửi xe dựa trên loại phương tiện và thời lượng đỗ.
+            Console.WriteLine("Chon loai xe (1: Motorbike, 2: Car, 3: Truck): ");
+            int typeInput = int.Parse(Console.ReadLine());
+            VehicleType vehicle = (VehicleType)typeInput;
+            // Nhập thời gian (Dùng ParseExact để ép buộc người dùng gõ đúng format)
+            string format = "yyyy-MM-dd HH:mm";
+            Console.Write($"Gio vao ({format}): ");
+            DateTime checkIn = DateTime.ParseExact(Console.ReadLine(), format, null);
+            Console.Write($"Gio ra ({format}): ");
+            DateTime checkOut = DateTime.ParseExact(Console.ReadLine(), format, null);
+            TimeSpan duration = checkOut - checkIn;
+            double rawHours = duration.TotalHours;
+            int billedHours = (int)Math.Ceiling(rawHours); 
+            decimal baseFee = 0m;      
+            decimal extraRate = 0m;    
+            switch (vehicle)
+            {
+                case VehicleType.Motorbike:
+                    baseFee = 5000m; extraRate = 2000m; break;
+                case VehicleType.Car:
+                    baseFee = 20000m; extraRate = 10000m; break;
+                case VehicleType.Truck:
+                    baseFee = 50000m; extraRate = 25000m; break;
+            }
+            decimal totalFee = 0;
+            decimal extraFee = 0;
+            int extraHours = 0;
+            if (billedHours <= 2)
+            {
+                totalFee = baseFee; 
+            }
+            else
+            {
+                extraHours = billedHours - 2; 
+                extraFee = extraHours * extraRate;
+                totalFee = baseFee + extraFee;
+            }
+            decimal overnight = 0;
+            if (checkOut.Date > checkIn.Date)
+            {
+                overnight = 30000m;
+                totalFee += overnight;
+            }
+            Console.WriteLine($"Loai xe: {vehicle}");
+            Console.WriteLine($"Tong thoi gian do: {rawHours:F2} gio -> Tinh phi: {billedHours} gio");
+            Console.WriteLine($"Phi 2 gio dau: {baseFee:N0} VNĐ");
+            if (billedHours > 2)
+            {
+                Console.WriteLine($"Phi {extraHours} gio tiep theo: {extraFee:N0} VNĐ ({extraRate:N0} x {extraHours})");
+            }
+
+            if (overnight > 0)
+            {
+                Console.WriteLine($"Phu phi qua đêm: {overnight:N0} VNĐ");
+            }
+
+            Console.WriteLine($"TONG PHI DO XE: {totalFee:N0} VNĐ");
         }
-        static void bai14()
+        /*static void bai14()
         {
             //Bài 14: Xử Lý Chuỗi Số An Toàn &Kiểm Tra Tràn Số(Overflow Exception)
             //Tình huống thực tế: Trong các ứng dụng nhận dữ liệu từ người dùng hoặc file ngoại vi, dữ liệu nhập vào có
@@ -463,7 +596,7 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
         }*/
-        bai10();
+        bai13();
     }
 }
 
