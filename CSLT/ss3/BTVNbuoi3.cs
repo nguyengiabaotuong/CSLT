@@ -584,13 +584,13 @@ internal class BTVNbuoi3
 
             Console.WriteLine($"TONG PHI DO XE: {totalFee:N0} VNĐ");
         }
-        /*static void bai14()
+        static void bai14()
         {
             //Bài 14: Xử Lý Chuỗi Số An Toàn &Kiểm Tra Tràn Số(Overflow Exception)
             //Tình huống thực tế: Trong các ứng dụng nhận dữ liệu từ người dùng hoặc file ngoại vi, dữ liệu nhập vào có
             //thể không phải là số hợp lệ hoặc vượt quá khả năng lưu trữ của kiểu dữ liệu. Cần xử lý an toàn
         }
-        static void bai15()
+        /*static void bai15()
         {
             //Bài 15: Hệ Thống Bán Vé Rạp Chiếu Phim & Chiết Khấu Tự Động
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
