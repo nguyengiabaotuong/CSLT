@@ -36,7 +36,7 @@ enum VehicleType
 internal class BTVNbuoi3
 {
   
-    public static void Main6()
+    public static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.InputEncoding = System.Text.Encoding.UTF8;
@@ -590,83 +590,77 @@ internal class BTVNbuoi3
             //Tình huống thực tế: Trong các ứng dụng nhận dữ liệu từ người dùng hoặc file ngoại vi, dữ liệu nhập vào có
             //thể không phải là số hợp lệ hoặc vượt quá khả năng lưu trữ của kiểu dữ liệu. Cần xử lý an toàn
             int number;
-
             // 1. VÒNG LẶP BẮT LỖI VỚI TRYPARSE
             while (true)
             {
-                Console.Write("Nhập chuỗi số: ");
+                Console.Write("Nhap chuoi so: ");
                 string input = Console.ReadLine();
-
-                // Nếu dịch thành công, số sẽ chui vào biến 'number' và thoát vòng lặp
                 if (int.TryParse(input, out number))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("[Lỗi] Dữ liệu nhập không phải là số nguyên hợp lệ. Vui lòng nhập lại!\n");
+                    Console.WriteLine("[Loi] Du lieu nhap khong phai la so nguyen hop le. Vui long nhap lai!\n");
                 }
             }
-
-            Console.WriteLine("\n--- OUTPUT ---");
             Console.WriteLine($"Kiểm tra Parse: Thành công! Giá trị int = {number}");
-
             // 2. KIỂM TRA SỨC CHỨA CỦA KIỂU DỮ LIỆU NHỎ HƠN
-            bool isByte = number >= byte.MinValue && number <= byte.MaxValue;     // 0 đến 255
-            bool isShort = number >= short.MinValue && number <= short.MaxValue;  // -32,768 đến 32,767
+            bool isByte = number >= byte.MinValue && number <= byte.MaxValue;     
+            bool isShort = number >= short.MinValue && number <= short.MaxValue;  
 
             if (isByte)
             {
-                Console.WriteLine("Phù hợp kiểu byte: CÓ (Vừa vặn trong dải 0-255)");
+                Console.WriteLine("Phu hop kieu byte: CO (Vua van trong dai 0-255)");
             }
             else if (isShort)
             {
-                Console.WriteLine("Phù hợp kiểu short: CÓ (Vừa vặn trong dải -32,768 đến 32,767)");
+                Console.WriteLine("Phu hop kieu short: CO (Vua van trong dai -32,768 đến 32,767)");
             }
             else
             {
-                Console.WriteLine("Phù hợp kiểu byte/short: KHÔNG (Chỉ chứa được trong int hoặc long)");
+                Console.WriteLine("Phu hop kieu byte/short: KHONG (Chi chua duoc trong int hoac long)");
             }
-
             // 3. TÍNH TỔNG CÁC CHỮ SỐ (Dùng chuỗi để tách từng số cho dễ)
-            string numStr = Math.Abs(number).ToString(); // Math.Abs để bỏ qua dấu âm nếu có
+            string numStr = Math.Abs(number).ToString(); 
             int sum = 0;
             List<string> digits = new List<string>();
-
             foreach (char c in numStr)
             {
                 int digit = int.Parse(c.ToString());
                 sum += digit;
                 digits.Add(digit.ToString());
             }
-
-            // string.Join giúp nối các số lại bằng dấu " + "
-            Console.WriteLine($"Tổng các chữ số: {string.Join(" + ", digits)} = {sum}");
-
+            Console.WriteLine($"Tong cac chu so: {string.Join(" + ", digits)} = {sum}");
             // 4. KIỂM TRA TRÀN SỐ VỚI KHỐI CHECKED
-            try
+            if (number == 0 || number == 1 || number == -1)
             {
-                // Khối checked ép máy tính phải báo lỗi nếu kết quả vượt quá giới hạn của kiểu int
-                checked
+                Console.WriteLine($"So {number} khi nhan tich luy se khong bao gio bi tran so.");
+            }
+            else
+            {
+                try
                 {
-                    // Thử nghiệm nhân số đó với 1 tỷ. 
-                    // (Giới hạn của int là 2.14 tỷ, nên nếu number >= 3 sẽ lập tức tràn số)
-                    int testOverflow = number * 1000000000;
-                    Console.WriteLine("Kiểm tra Tràn số: An toàn trong phạm vi int32.");
+                    // Khối checked ép máy tính phải báo lỗi nếu kết quả vượt quá giới hạn của kiểu int
+                    checked
+                    {
+                        int result = number*number;
+                        Console.WriteLine("Kiem tra Tran so: An toan trong pham vi int32.");
+                    }
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("Kiem tra Tran so: [Canh bao] Phat hien tran so (OverflowException)! Con so da vo mang.");
                 }
             }
-            catch (OverflowException)
-            {
-                Console.WriteLine("Kiểm tra Tràn số: [Cảnh báo] Phát hiện tràn số (OverflowException)! Con số đã vỡ mảng.");
-            }
     }
-        /*static void bai15()
+        static void bai15()
         {
             //Bài 15: Hệ Thống Bán Vé Rạp Chiếu Phim & Chiết Khấu Tự Động
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
-        }*/
-        bai13();
+        }
+        bai14();
     }
 }
 

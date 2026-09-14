@@ -3,7 +3,7 @@ using System.Reflection.Metadata.Ecma335;
 
 internal class Btapbuoi6
 {
-    public static void Main()
+    public static void Main6()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.InputEncoding = System.Text.Encoding.UTF8;
