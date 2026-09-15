@@ -33,6 +33,13 @@ enum VehicleType
     Car=2,
     Truck=3
 }
+enum CustomerType
+{
+    Child = 1, 
+    Student = 2,
+    Adult = 3,
+    Senior = 4
+}
 internal class BTVNbuoi3
 {
   
@@ -659,8 +666,50 @@ internal class BTVNbuoi3
             //Bài 15: Hệ Thống Bán Vé Rạp Chiếu Phim & Chiết Khấu Tự Động
             //Tình huống thực tế: Rạp chiếu phim Cinema X áp dụng chính sách giá vé linh hoạt phụ thuộc vào đối
             //tượng khách hàng, ngày trong tuần và các chương trình khuyến mãi tự động.
+            decimal baseprice = 100000m;
+            Console.Write("Chon loai khach (1: Child, 2: Student, 3: Adult, 4: Senior): ");
+            CustomerType customer = (CustomerType)int.Parse(Console.ReadLine());
+            bool hasStudentId = false;
+            if (customer == CustomerType.Student)
+            {
+                Console.Write("Co the SV hop le khong? (true/false): ");
+                hasStudentId = bool.Parse(Console.ReadLine());
+            }
+            Console.Write("Ngay xem (Monday -> Sunday): ");
+            DayOfWeek day;
+            // Dùng Enum.TryParse để dịch chữ tiếng Anh người dùng gõ thành kiểu DayOfWeek của hệ thống
+            while (!Enum.TryParse(Console.ReadLine(), true, out day))
+                Console.Write("Sai dinh dang ngay! Vui long nhap lai tieng Anh (vd: Monday): ");
+            decimal discount = 0m;
+            string discountLabel = "Khong co khuyen mai"; 
+
+            if (customer == CustomerType.Child || customer == CustomerType.Senior)
+            {
+                discount = baseprice * 0.5m;
+                discountLabel = (customer == CustomerType.Child) ? "Giam gia Tre em (50%)" : "Giam gia Cao tuoi (50%)";
+            }
+            else if (customer == CustomerType.Student && hasStudentId && (day >= DayOfWeek.Monday && day <= DayOfWeek.Thursday))
+            {
+                // && (VÀ): Bắt buộc phải thỏa mãn ĐỒNG THỜI cả 3 điều kiện: Là SV + Có thẻ + Ngày từ T2 đến T5
+                discount = baseprice * 0.3m;
+                discountLabel = "Giam gia SV (30%)";
+            }
+            else if (customer == CustomerType.Adult && day == DayOfWeek.Wednesday)
+            {
+                discount = baseprice * 0.2m;
+                discountLabel = "Thu 4 Vui ve (20%)";
+            }
+            decimal surcharge = 0m;
+            if (day == DayOfWeek.Friday || day == DayOfWeek.Saturday || day == DayOfWeek.Sunday)
+                surcharge = 20000m;
+            decimal finalprice = baseprice - discount + surcharge;
+            Console.WriteLine($"Gia ve goc: {baseprice:N0} VNĐ");
+            if (discount > 0)
+                Console.WriteLine($"{discountLabel}: - {discount:N0} VNĐ");
+            Console.WriteLine($"Phu thu cuoi tuan: {surcharge:N0} VNĐ");
+            Console.WriteLine($"TONG TIEN VE: {finalprice:N0} VNĐ");
         }
-        bai14();
+        bai15();
     }
 }
 
