@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.Serialization;
 using System.Text;
 internal class BTVNbuoi6
 {
     public static void Main()
     {
         Console.OutputEncoding = Encoding.UTF8;
-        Console.Write("Nhap so nguyen thu 1: ");
+        /*Console.Write("Nhap so nguyen thu 1: ");
         int a = int.Parse(Console.ReadLine());
         Console.Write("Nhap so nguyen thu 2: ");
         int b = int.Parse(Console.ReadLine());
@@ -25,6 +26,17 @@ internal class BTVNbuoi6
         Console.Write("Nhap chuoi ban muon dao nguoc: ");
         string chuoi = Console.ReadLine();
         Console.WriteLine($"Ket qua: {daochuoi(chuoi)}");
+        Console.Write("Nhap so nguyen de xet so nguyen to: ");
+        int f = int.Parse(Console.ReadLine());
+        if (snt(f))
+            Console.WriteLine("True");
+        else Console.WriteLine("False");
+        Console.Write("Nhap so nguyen muon viet day fibonacci: ");
+        int g = int.Parse(Console.ReadLine());
+        fibo(g);
+        Console.Write("Nhap chuoi ban muon dem so ky tu nguyen am: ");
+        string s = Console.ReadLine();
+        Console.WriteLine($"{vowel(s)}");*/
     }
     static int sum(int a, int b)
     { return a + b; }
@@ -56,6 +68,52 @@ internal class BTVNbuoi6
         Array.Reverse(charArray);
         string kq = new string(charArray);
         return kq;
+    }
+    static bool snt(int f)
+    {
+        bool snt = true;
+        for (int i = 2; i < f/2; i++)
+            if (f % i == 0)
+            {
+                snt = false;
+                break;
+            }
+        return snt;
+    }
+    static void fibo (int g)
+    {
+        if (g <= 0) return;
+        if (g == 1)
+        {
+            Console.WriteLine("0");
+            return;
+        }
+        int a = 0;
+        int b = 1;
+        Console.Write($"{a} {b} ");
+        for (int i=3; i<=g;i++)
+        {
+            int c = a + b;
+            Console.Write($"{c} ");
+            a = b;
+            b = c;
+        }
+        Console.WriteLine();
+    }
+    static int vowel (string s)
+    {
+        int dem = 0;
+        foreach (char b in s)
+        {
+            char c = Char.ToLower(b);
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+                dem ++;
+        }
+        return dem;
+    }
+    static double luythua ( double x, int y)
+    {
+
     }
 
 }
