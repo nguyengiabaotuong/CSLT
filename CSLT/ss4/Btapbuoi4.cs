@@ -7,7 +7,7 @@ using System.Text;
 
 internal class Btapbuoi4
 {
-    public static void Main3()
+    public static void Main4()
     {
         static void bai1()
         {
