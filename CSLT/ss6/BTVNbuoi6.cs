@@ -29,14 +29,46 @@ internal class BTVNbuoi6
         Console.Write("Nhap so nguyen de xet so nguyen to: ");
         int f = int.Parse(Console.ReadLine());
         if (snt(f))
-            Console.WriteLine("True");
-        else Console.WriteLine("False");
+            Console.WriteLine("True! {f} la so nguyen to");
+        else Console.WriteLine("False! {f} khong la so nguyen to");
         Console.Write("Nhap so nguyen muon viet day fibonacci: ");
         int g = int.Parse(Console.ReadLine());
         fibo(g);
-        Console.Write("Nhap chuoi ban muon dem so ky tu nguyen am: ");
+        Console.Write("Nhap chuoi: ");
         string s = Console.ReadLine();
-        Console.WriteLine($"{vowel(s)}");*/
+        Console.WriteLine($"So nguyen am trong cau la: {vowel(s)}");
+        Console.Write("Nhap he so thu 1 de tinh luy thua: ");
+        double h = double.Parse(Console.ReadLine());
+        Console.Write("Nhap he so thu  2 de tinh luy thua: ");
+        int i = int.Parse(Console.ReadLine());
+        Console.WriteLine($"{h} mũ {i} = {luythua(h,i)}");
+        Console.Write("Nhap so phan tu cua mang: ");
+        int j = int.Parse(Console.ReadLine());
+        int[] arr = new int[j];
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Console.Write($"Nhap gia tri cho vi tri thu {i+1}: ");
+            arr[i] = int.Parse(Console.ReadLine());
+        }
+        Console.WriteLine($"Gia tri trung binh cua {j} so= {dtb(arr)}");
+        Console.WriteLine($"{doixung(s)}");
+        Console.Write("Nhap nhiet do (celsius): ");
+        int cel = int.Parse(Console.ReadLine());
+        Console.WriteLine($"Nhiet do (fahrenheit): {celtofah(cel):N2}");
+        Console.WriteLine($"Phan tu nho nhat trong mang la: {mininarr(arr)}");
+        Console.Write("Nhap 1 so nguyen de tinh tong cac chu so thanh phan: ");
+        int k = int.Parse(Console.ReadLine());
+        Console.WriteLine($"Tong cac chu so co trong so: {tongchuso(k)}");
+        sapxepmang(arr);
+        Console.WriteLine($"Ket qua: {xoatrung(s)}");
+        Console.Write("Nhap so nguyen thu 1: ");
+        int l = int.Parse(Console.ReadLine());
+        Console.Write("Nhap so nguyen thu 2: ");
+        int m = int.Parse(Console.ReadLine());
+        Console.WriteLine($"Uoc chung lon nhat cua {l} va {m} la {ucln(l,m)}");*/
+        Console.Write("Nhap 1 so thap phan: ");
+        int n = int.Parse(Console.ReadLine());
+        Console.WriteLine($"Chuoi nhi phan: {decimaltobinary(n)}");
     }
     static int sum(int a, int b)
     { return a + b; }
@@ -111,11 +143,113 @@ internal class BTVNbuoi6
         }
         return dem;
     }
-    static double luythua ( double x, int y)
+    static double luythua ( double h, int i)
     {
+        double kq = 1;
+        for (int j = 1; j <= i; j++)
+            kq = kq * h;
+        return kq;
+    }
+    static double dtb(int[] arr)
+    {
+        double kq = 0;
+        for (int i = 0; i < arr.Length; i++)
+            kq += arr[i];
+        kq = kq / (arr.Length);
+        return kq;
 
     }
+    static bool doixung(string s)
+    {
+        string latchuoi = daochuoi(s);
 
+        if (s == latchuoi)
+            return true;
+        else
+            return false;
+    }
+    static double celtofah( double cel)
+    {
+        double fah = cel * 1.8 + 32;
+        return fah;
+    }
+    static int mininarr(int[] arr)
+    {
+        int min = arr[0];
+        for (int i = 0; i < arr.Length; i++)
+            if (arr[i] < min)
+                min = arr[i];
+        return min;
+    }
+    static int tongchuso(int k)
+    {
+        k = Math.Abs(k);
+        int sum = 0;
+        while (k>0)
+        {
+            int socuoi = k % 10;
+            sum += socuoi;
+            k = k / 10;
+        }
+        return sum;
+    }
+    static void sapxepmang(int[] arr)
+    {
+        for (int i = 0; i<arr.Length-1;i++)
+        {
+            for (int j = 0; i < arr.Length; j++)
+                if (arr[i] > arr[j])
+                {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }    
+        }
+        foreach (int so in arr)
+        {
+            Console.Write($"{so} ");
+        }
+        Console.WriteLine();
+    }
+    static string xoatrung (string s)
+    {
+        string ketQua = ""; 
+        foreach (char c in s) 
+            if (!ketQua.Contains(c.ToString()))
+                ketQua += c; 
+        return ketQua;
+    }
+    static int ucln(int l, int m)
+    {
+        l = Math.Abs(l);
+        m = Math.Abs(m);
+        while (m != 0)
+        {
+            int phanDu = l % m; // Tìm phần dư của a chia cho b
+            l = m;              // Đẩy b lên làm số bị chia mới
+            m = phanDu;         // Đẩy phần dư lên làm số chia mới
+        }
+        // Khi b = 0, vòng lặp dừng lại. Số a lúc này chính là ƯCLN.
+        return l;
+    }
+    static string decimaltobinary(int n)
+    {
+        if (n == 0) return "0";
+
+        string ketQua = "";
+        while (n > 0)
+        {
+            int phanDu = n % 2; 
+            ketQua = phanDu + ketQua;
+            n = n / 2; 
+        }
+        return ketQua;
+    }
+    static string decimaltobinarynhanh(int n)
+    {
+        return Convert.ToString(n, 2);
+    }
 }
+
         
 
