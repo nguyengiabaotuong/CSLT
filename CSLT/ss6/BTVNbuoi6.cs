@@ -9,7 +9,7 @@ internal class BTVNbuoi6
     public static void Main()
     {
         Console.OutputEncoding = Encoding.UTF8;
-        /*Console.Write("Nhap so nguyen thu 1: ");
+        Console.Write("Nhap so nguyen thu 1: ");
         int a = int.Parse(Console.ReadLine());
         Console.Write("Nhap so nguyen thu 2: ");
         int b = int.Parse(Console.ReadLine());
@@ -45,10 +45,10 @@ internal class BTVNbuoi6
         Console.Write("Nhap so phan tu cua mang: ");
         int j = int.Parse(Console.ReadLine());
         int[] arr = new int[j];
-        for (int i = 0; i < arr.Length; i++)
+        for (int o = 0; i < arr.Length; o++)
         {
-            Console.Write($"Nhap gia tri cho vi tri thu {i+1}: ");
-            arr[i] = int.Parse(Console.ReadLine());
+            Console.Write($"Nhap gia tri cho vi tri thu {o+1}: ");
+            arr[o] = int.Parse(Console.ReadLine());
         }
         Console.WriteLine($"Gia tri trung binh cua {j} so= {dtb(arr)}");
         Console.WriteLine($"{doixung(s)}");
@@ -65,10 +65,16 @@ internal class BTVNbuoi6
         int l = int.Parse(Console.ReadLine());
         Console.Write("Nhap so nguyen thu 2: ");
         int m = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Uoc chung lon nhat cua {l} va {m} la {ucln(l,m)}");*/
+        Console.WriteLine($"Uoc chung lon nhat cua {l} va {m} la {ucln(l,m)}");
         Console.Write("Nhap 1 so thap phan: ");
         int n = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Chuoi nhi phan: {decimaltobinary(n)}");
+        Console.WriteLine($"Chuoi nhi phan: {decimaltobinarynhanh(n)}");
+        Console.Write("Nhap 1 nam ban muon kiem tra co phai nhuan hay khong: ");
+        int year = int.Parse(Console.ReadLine());
+        Console.WriteLine($"{ktnam(year)}");
+        Console.Write("Nhap 1 cau de dem so tu: ");
+        string sentence = Console.ReadLine();
+        Console.WriteLine($"So tu co trong cau: {demsotu(sentence)}");
     }
     static int sum(int a, int b)
     { return a + b; }
@@ -248,6 +254,20 @@ internal class BTVNbuoi6
     static string decimaltobinarynhanh(int n)
     {
         return Convert.ToString(n, 2);
+    }
+    static bool ktnam (int year)
+    {
+        if (year % 4 == 0)
+            return true;
+        else return false;
+    }
+    static int demsotu (string sentence)
+    {
+        int dem = 1;
+        foreach (char a in sentence)
+            if (a == ' ')
+                dem++;
+        return dem;
     }
 }
 
