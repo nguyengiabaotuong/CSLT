@@ -45,13 +45,13 @@ internal class Btapbuoi7
         foreach (int i in arr)
             if (i == c)
                 n++;
-        int[] newarr = new int[arr.Length-n];
+        int[] newarr = new int[arr.Length - n];
         int j = 0;
         for (int i = 0; i < arr.Length; i++)
         {
             if (arr[i] == c)
-                continue; 
-            newarr[j] = arr[i]; 
+                continue;
+            newarr[j] = arr[i];
             j++;
 
         }
@@ -59,7 +59,7 @@ internal class Btapbuoi7
         foreach (int i in newarr)
             Console.Write($"{i} ");
     }
-    static (int,int) minmax(int[]arr)
+    static (int, int) minmax(int[] arr)
     {
         int min = arr[0];
         int max = arr[0];
@@ -70,18 +70,18 @@ internal class Btapbuoi7
             if (arr[i] > max)
                 max = arr[i];
         }
-        return (min,max);
+        return (min, max);
     }
     static void latmang(int[] arr)
     {
         int i = 0;
-        int j = arr.Length-1;
-        while (i<j)
+        int j = arr.Length - 1;
+        while (i < j)
         {
             int temp = arr[i];
             arr[i] = arr[j];
             arr[j] = temp;
-            i++; 
+            i++;
             j--;
         }
         Console.WriteLine("Mang sau khi lat: ");
@@ -89,5 +89,5 @@ internal class Btapbuoi7
             Console.Write($"{a} ");
 
     }
-    
+
 }
