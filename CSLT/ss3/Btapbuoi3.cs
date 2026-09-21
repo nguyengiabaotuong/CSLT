@@ -6,7 +6,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class Btapbuoi3
 {
-    public static void Main2()
+    public static void Main3()
     {
         //▸The Celsius scale is centigrade, 100 divisions separate the freezing point
         //from the boiling point of water.On the Fahrenheit scale of Anglo-Saxons,

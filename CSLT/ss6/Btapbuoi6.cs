@@ -13,12 +13,10 @@ internal class Btapbuoi6
         int b = int.Parse(Console.ReadLine());
         Console.Write("Nhập số thứ 3: ");
         int c = int.Parse(Console.ReadLine());
-        int max = solonnhat(a, b, c);
-        Console.WriteLine($"Số lớn nhất trong 3 số là {max}");
+        Console.WriteLine($"Số lớn nhất trong 3 số là {solonnhat(a,b,c)}");
         Console.Write("Nhập 1 số muốn tính giai thừa: ");
         int d = int.Parse(Console.ReadLine());
-        int gt = giaithua(d);
-        Console.WriteLine($"Giai thừa của d= {gt}");
+        Console.WriteLine($"Giai thừa của d= {giaithua(d)}");
         Console.Write("Nhập 1 số để xét số nguyên tố: ");
         int e = int.Parse(Console.ReadLine());
         if (IsPrime(e))

@@ -8,13 +8,18 @@ internal class Btapbuoi7
 {
     public static void Main()
     {
-        int[] arr = { 1, 2, 3, 4 };
-        /*Console.WriteLine($"Gia tri trung binh cua mang: {dtb(arr)}");
+        int[] arr = { 1, 2, 3, 4, 2, 4 };
+        Console.WriteLine($"Gia tri trung binh cua mang: {dtb(arr)}");
         Console.WriteLine($"Ket qua kiem tra: {ktra(arr,3)}");
         Console.WriteLine($"Index (2) nam o vi tri thu {index(arr,2)}");
         remove(arr, 4);
-        Console.WriteLine($"Gia tri nho nhat va lon nhat: {minmax(arr)}");*/
+        Console.WriteLine($"Gia tri nho nhat va lon nhat: {minmax(arr)}");
         latmang(arr);
+        trunglap(arr);
+        Console.WriteLine($"Mang sau khi xoa trung lap: ");
+        int[] kq = xoatrung(arr);
+        foreach (int i in kq)
+            Console.Write($"{i} ");
     }
     static double dtb(int[] arr)
     {
@@ -58,6 +63,7 @@ internal class Btapbuoi7
         Console.WriteLine("Mang sau khi xoa:");
         foreach (int i in newarr)
             Console.Write($"{i} ");
+        Console.WriteLine();
     }
     static (int, int) minmax(int[] arr)
     {
@@ -74,20 +80,64 @@ internal class Btapbuoi7
     }
     static void latmang(int[] arr)
     {
-        int i = 0;
-        int j = arr.Length - 1;
-        while (i < j)
+        int[] newarr = new int[arr.Length];
+        int j = 0;
+        for (int i = arr.Length - 1; i == 0; i--)
         {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-            i++;
-            j--;
+            newarr[j] = arr[i];
+            j++;
         }
         Console.WriteLine("Mang sau khi lat: ");
         foreach (int a in arr)
             Console.Write($"{a} ");
-
+        Console.WriteLine();
     }
-
+    static void trunglap(int[] arr)
+    {
+        Console.Write("Cac so trung lap la: ");
+        for (int i = 0; i < arr.Length - 1; i++)
+        {
+            bool daxet = false;
+            for (int k = 0; k < i; k++)
+                if (arr[i] == arr[k])
+                {
+                    daxet = true;
+                    break;
+                }
+            if (daxet) continue; 
+            for (int j = i + 1; j < arr.Length; j++)
+                if (arr[i] == arr[j])
+                {
+                    Console.Write($"{arr[i]} ");
+                    break; 
+                }
+        }
+        Console.WriteLine();
+    }
+    static int[] xoatrung(int[]arr)
+    {
+        int[] newarr = new int[arr.Length];
+        int soLuongMoi = 0; 
+        for (int i = 0; i < arr.Length; i++)
+        {
+            bool daTonTai = false;
+            for (int k = 0; k < soLuongMoi; k++)
+                if (newarr[k] == arr[i])
+                {
+                    daTonTai = true;
+                    break; 
+                }
+            if (!daTonTai)
+            {
+                newarr[soLuongMoi] = arr[i];
+                soLuongMoi++; 
+            }
+        }
+        // Bước 3: Lúc này mảng temp có thể bị dư rất nhiều ô trống ở cuối. 
+        // Ta tạo mảng kết quả VỪA KHÍT với số lượng thực tế.
+        int[] ketQua = new int[soLuongMoi];
+        for (int i = 0; i < soLuongMoi; i++)
+            ketQua[i] = newarr[i];
+        return ketQua;
+    }
 }

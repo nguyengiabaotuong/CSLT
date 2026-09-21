@@ -2,7 +2,7 @@
 
 internal class Btapbuoi2
 {
-    public static void Main1()
+    public static void Main2()
     {
         //1.to Add / Sum Two Numbers.
         Console.Write("Enter first integer number: ");
