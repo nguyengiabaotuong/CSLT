@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 internal class Btapbuoi7
 {
-    public static void Main()
+    public static void Main7()
     {
         int[] arr = { 1, 2, 3, 4, 2, 4 };
         Console.WriteLine($"Gia tri trung binh cua mang: {dtb(arr)}");

@@ -1,272 +1,234 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.Serialization;
 using System.Text;
 internal class BTVNbuoi6
-{
-    public static void Main6()
     {
-        Console.OutputEncoding = Encoding.UTF8;
-        Console.Write("Nhap so nguyen thu 1: ");
-        int a = int.Parse(Console.ReadLine());
-        Console.Write("Nhap so nguyen thu 2: ");
-        int b = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Tong 2 so nguyen  = {sum(a, b)}");
-        Console.Write("Nhap 1 so nguyen de kiem tra chan le: ");
-        int d = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Ket qua: {chanle(d)}");
-        Console.Write("Nhap so nguyen thu 3: ");
-        int c = int.Parse(Console.ReadLine());
-        Console.WriteLine($"So nguyen lon nhat trong 3 so nguyen la: {max(a, b, c)}");
-        Console.Write("Nhap so nguyen de tinh giai thua: ");
-        int e = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Giai thua cua {e}= {gt(e)}");
-        Console.Write("Nhap chuoi ban muon dao nguoc: ");
-        string chuoi = Console.ReadLine();
-        Console.WriteLine($"Ket qua: {daochuoi(chuoi)}");
-        Console.Write("Nhap so nguyen de xet so nguyen to: ");
-        int f = int.Parse(Console.ReadLine());
-        if (snt(f))
-            Console.WriteLine("True! {f} la so nguyen to");
-        else Console.WriteLine("False! {f} khong la so nguyen to");
-        Console.Write("Nhap so nguyen muon viet day fibonacci: ");
-        int g = int.Parse(Console.ReadLine());
-        fibo(g);
-        Console.Write("Nhap chuoi: ");
-        string s = Console.ReadLine();
-        Console.WriteLine($"So nguyen am trong cau la: {vowel(s)}");
-        Console.Write("Nhap he so thu 1 de tinh luy thua: ");
-        double h = double.Parse(Console.ReadLine());
-        Console.Write("Nhap he so thu  2 de tinh luy thua: ");
-        int i = int.Parse(Console.ReadLine());
-        Console.WriteLine($"{h} mũ {i} = {luythua(h, i)}");
-        Console.Write("Nhap so phan tu cua mang: ");
-        int j = int.Parse(Console.ReadLine());
-        int[] arr = new int[j];
-        for (int o = 0; o < arr.Length; o++)
+        static void Main()
         {
-            Console.Write($"Nhap gia tri cho vi tri thu {o + 1}: ");
-            arr[o] = int.Parse(Console.ReadLine());
-        }
-        Console.WriteLine($"Gia tri trung binh cua {j} so= {dtb(arr)}");
-        Console.WriteLine($"{doixung(s)}");
-        Console.Write("Nhap nhiet do (celsius): ");
-        int cel = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Nhiet do (fahrenheit): {celtofah(cel):N2}");
-        Console.WriteLine($"Phan tu nho nhat trong mang la: {mininarr(arr)}");
-        Console.Write("Nhap 1 so nguyen de tinh tong cac chu so thanh phan: ");
-        int k = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Tong cac chu so co trong so: {tongchuso(k)}");
-        sapxepmang(arr);
-        Console.WriteLine($"Ket qua: {xoatrung(s)}");
-        Console.Write("Nhap so nguyen thu 1: ");
-        int l = int.Parse(Console.ReadLine());
-        Console.Write("Nhap so nguyen thu 2: ");
-        int m = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Uoc chung lon nhat cua {l} va {m} la {ucln(l, m)}");
-        Console.Write("Nhap 1 so thap phan: ");
-        int n = int.Parse(Console.ReadLine());
-        Console.WriteLine($"Chuoi nhi phan: {decimaltobinarynhanh(n)}");
-        Console.Write("Nhap 1 nam ban muon kiem tra co phai nhuan hay khong: ");
-        int year = int.Parse(Console.ReadLine());
-        Console.WriteLine($"{ktnam(year)}");
-        Console.Write("Nhap 1 cau de dem so tu: ");
-        string sentence = Console.ReadLine();
-        Console.WriteLine($"So tu co trong cau: {demsotu(sentence)}");
-    }
-    static int sum(int a, int b)
-    { return a + b; }
-    static string chanle(int d)
-    {
-        bool le = true;
-        string kt = "";
-        if (d % 2 == 0)
-            le = false;
-        if (le)
-            kt = $"{d}%2 ≠ 0 -> {d} la so le ";
-        else kt = $"{d}%2 = 0 -> {d} la so chan ";
-        return kt;
-    }
-    static int max(int a, int b, int c)
-    {
-        return Math.Max(Math.Max(a, b), c);
-    }
-    static long gt(int e)
-    {
-        long kq = 1;
-        for (int i = 1; i <= e; i++)
-            kq *= i;
-        return kq;
-    }
-    static string daochuoi(string chuoi)
-    {
-        char[] charArray = chuoi.ToCharArray();
-        Array.Reverse(charArray);
-        string kq = new string(charArray);
-        return kq;
-    }
-    static bool snt(int f)
-    {
-        bool snt = true;
-        for (int i = 2; i < f / 2; i++)
-            if (f % i == 0)
+            Random rand = new Random();
+            int[] arr = new int[10];
+            for (int i = 0; i < arr.Length; i++)
+                arr[i] = rand.Next(1, 10); 
+            Console.Write("Mang ban dau: ");
+            InMang(arr);
+            Console.WriteLine($"Trung binh: {TinhTrungBinh(arr)}");
+            Console.WriteLine($"Ket qua: {KiemTraTonTai(arr, 5)}");
+            Console.WriteLine($"Vi tri cua so 5: {TimViTri(arr, 5)}");
+            Console.Write($"Mang sau khi xoa so 5: ");
+            InMang(XoaPhanTu(arr, 5));
+            TimMinMax(arr);
+            Console.Write($"Mang da dao: ");
+            InMang(DaoNguoc(arr));
+            Console.Write($"Cac so trung lap: ");
+            TimTrungLap(arr);
+            Console.Write($"Mang sau khi xoa so trung lap: ");
+            InMang(XoaTrungLap(arr));
+            int[] arr2 = new int[10];
+            Console.WriteLine("Nhap 10 so nguyen:");
+            for (int i = 0;i < 10; i++)
             {
-                snt = false;
-                break;
+                Console.Write($"So thu {i+1}: ");
+                arr2[i] = int.Parse(Console.ReadLine());
             }
-        return snt;
-    }
-    static void fibo(int g)
-    {
-        if (g <= 0) return;
-        if (g == 1)
-        {
-            Console.WriteLine("0");
-            return;
-        }
-        int a = 0;
-        int b = 1;
-        Console.Write($"{a} {b} ");
-        for (int i = 3; i <= g; i++)
-        {
-            int c = a + b;
-            Console.Write($"{c} ");
-            a = b;
-            b = c;
-        }
-        Console.WriteLine();
-    }
-    static int vowel(string s)
-    {
-        int dem = 0;
-        foreach (char b in s)
-        {
-            char c = Char.ToLower(b);
-            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
-                dem++;
-        }
-        return dem;
-    }
-    static double luythua(double h, int i)
-    {
-        double kq = 1;
-        for (int j = 1; j <= i; j++)
-            kq = kq * h;
-        return kq;
-    }
-    static double dtb(int[] arr)
-    {
-        double kq = 0;
-        for (int i = 0; i < arr.Length; i++)
-            kq += arr[i];
-        kq = kq / (arr.Length);
-        return kq;
-
-    }
-    static bool doixung(string s)
-    {
-        string latchuoi = daochuoi(s);
-
-        if (s == latchuoi)
-            return true;
-        else
-            return false;
-    }
-    static double celtofah(double cel)
-    {
-        double fah = cel * 1.8 + 32;
-        return fah;
-    }
-    static int mininarr(int[] arr)
-    {
-        int min = arr[0];
-        for (int i = 0; i < arr.Length; i++)
-            if (arr[i] < min)
-                min = arr[i];
-        return min;
-    }
-    static int tongchuso(int k)
-    {
-        k = Math.Abs(k);
-        int sum = 0;
-        while (k > 0)
-        {
-            int socuoi = k % 10;
-            sum += socuoi;
-            k = k / 10;
-        }
-        return sum;
-    }
-    static void sapxepmang(int[] arr)
-    {
-        for (int i = 0; i < arr.Length - 1; i++)
-        {
-            for (int j = 0; i < arr.Length; j++)
-                if (arr[i] > arr[j])
+            for (int i = 0; i < arr2.Length - 1; i++)
+                for (int j = i + 1; j < arr2.Length; j++)
+                    if (arr2[i] > arr2[j])
+                    {
+                        int temp = arr2[i];
+                        arr2[i] = arr2[j];
+                        arr2[j] = temp;
+                    }
+            Console.Write("Mang sau khi Bubble Sort: ");
+            InMang(arr2);
+            Console.Write("\nNhap mot cau (sentence): ");
+            string sentence = Console.ReadLine();
+            Console.Write("Nhap tu can tim: ");
+            string word = Console.ReadLine();
+            string[] words = sentence.Split(' ');
+            bool found = false;
+            for (int i = 0; i < words.Length; i++)
+                if (words[i] == word)
                 {
-                    int temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
+                    found = true;
+                    Console.WriteLine($"Tim thay tu '{word}' tai vi tri tu thu {i + 1}");
+                    break;
                 }
+            if (found == false) Console.WriteLine("Khong tim thay tu nay!");
+            Console.Write("Nhap so hang N: ");
+            int N = int.Parse(Console.ReadLine());
+            Console.Write("Nhap so cot M: ");
+            int M = int.Parse(Console.ReadLine());
+            int[,] matrix = new int[N, M];
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < M; j++)
+                    matrix[i, j] = rand.Next(1, 100);
+            Console.WriteLine("\nMa tran ngau nhien:");
+            InMaTran(matrix);
+            int maxMat = matrix[0, 0];
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < M; j++)
+                    if (matrix[i, j] > maxMat) maxMat = matrix[i, j];
+            Console.WriteLine($"\nGia tri Max cua toan ma tran: {maxMat}");
+            Console.Write("\nNhap chi so hang/cot (i) can xem (bat dau tu 0): ");
+            int index = int.Parse(Console.ReadLine());
+            InHangVaTimMin(matrix, index);
+            InCotVaTimMin(matrix, index);
+            Console.WriteLine("\nMa tran chuyen vi (Transpose):");
+            int[,] transposed = new int[M, N];
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < M; j++)
+                    transposed[j, i] = matrix[i, j];
+            InMaTran(transposed);
+            if (N == M)
+            {
+                Console.Write("\nDuong cheo chinh: ");
+                for (int i = 0; i < N; i++) 
+                    Console.Write(matrix[i, i] + " ");
+                Console.Write("\nDuong cheo phu: ");
+                for (int i = 0; i < N; i++) 
+                    Console.Write(matrix[i, N - 1 - i] + " ");
+                Console.WriteLine();
+            }
+            else
+                Console.WriteLine("\nMa tran khong vuong nen khong in duong cheo.");
+            Console.ReadLine(); 
         }
-        foreach (int so in arr)
+        static void InMang(int[] arr)
         {
-            Console.Write($"{so} ");
+            for (int i = 0; i < arr.Length; i++) 
+                Console.Write(arr[i] + " ");
+            Console.WriteLine();
         }
-        Console.WriteLine();
-    }
-    static string xoatrung(string s)
-    {
-        string ketQua = "";
-        foreach (char c in s)
-            if (!ketQua.Contains(c.ToString()))
-                ketQua += c;
-        return ketQua;
-    }
-    static int ucln(int l, int m)
-    {
-        l = Math.Abs(l);
-        m = Math.Abs(m);
-        while (m != 0)
+        static double TinhTrungBinh(int[] arr)
         {
-            int phanDu = l % m; // Tìm phần dư của a chia cho b
-            l = m;              // Đẩy b lên làm số bị chia mới
-            m = phanDu;         // Đẩy phần dư lên làm số chia mới
+            double sum = 0;
+            for (int i = 0; i < arr.Length; i++) sum = sum + arr[i];
+            return sum / arr.Length;
         }
-        // Khi b = 0, vòng lặp dừng lại. Số a lúc này chính là ƯCLN.
-        return l;
-    }
-    static string decimaltobinary(int n)
-    {
-        if (n == 0) return "0";
+        static bool KiemTraTonTai(int[] arr, int val)
+        {
+            for (int i = 0; i < arr.Length; i++) 
+                if (arr[i] == val) 
+                    return true;
+            return false;
+        }
+        static int TimViTri(int[] arr, int val)
+        {
+            for (int i = 0; i < arr.Length; i++) 
+                if (arr[i] == val) 
+                    return i;
+            return -1;
+        }
+        static int[] XoaPhanTu(int[] arr, int val)
+        {
+            int dem = 0;
+            for (int i = 0; i < arr.Length; i++) 
+                if (arr[i] != val) 
+                    dem++;
+            int[] newArr = new int[dem];
+            int j = 0;
+            for (int i = 0; i < arr.Length; i++)
+                if (arr[i] != val)
+                {
+                    newArr[j] = arr[i];
+                    j++;
+                }
+            return newArr;
+        }
+        static void TimMinMax(int[] arr)
+        {
+            int min = arr[0], max = arr[0];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < min) min = arr[i];
+                if (arr[i] > max) max = arr[i];
+            }
+            Console.WriteLine($"Min: {min}, Max: {max}");
+        }
+        static int[] DaoNguoc(int[] arr)
+        {
+            int[] newArr = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+                newArr[i] = arr[arr.Length - 1 - i];
+            return newArr;
+        }
+        static void TimTrungLap(int[] arr)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                bool daXet = false;
+                for (int k = 0; k < i; k++) 
+                    if (arr[i] == arr[k]) 
+                        daXet = true;
+                if (daXet == true) continue; 
+                for (int j = i + 1; j < arr.Length; j++)
+                    if (arr[i] == arr[j])
+                    {
+                        Console.Write(arr[i] + " ");
+                        break;
+                    }
+            }
+            Console.WriteLine();
+        }
+        static int[] XoaTrungLap(int[] arr)
+        {
+            int[] temp = new int[arr.Length];
+            int soLuongMoi = 0;
 
-        string ketQua = "";
-        while (n > 0)
-        {
-            int phanDu = n % 2;
-            ketQua = phanDu + ketQua;
-            n = n / 2;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                bool daTonTai = false;
+                for (int k = 0; k < soLuongMoi; k++)
+                {
+                    if (temp[k] == arr[i])
+                    {
+                        daTonTai = true;
+                        break;
+                    }
+                }
+                if (daTonTai == false)
+                {
+                    temp[soLuongMoi] = arr[i];
+                    soLuongMoi++;
+                }
+            }
+            int[] ketQua = new int[soLuongMoi];
+            for (int i = 0; i < soLuongMoi; i++) ketQua[i] = temp[i];
+            return ketQua;
         }
-        return ketQua;
-    }
-    static string decimaltobinarynhanh(int n)
-    {
-        return Convert.ToString(n, 2);
-    }
-    static bool ktnam(int year)
-    {
-        if (year % 4 == 0)
-            return true;
-        else return false;
-    }
-    static int demsotu(string sentence)
-    {
-        int dem = 1;
-        foreach (char a in sentence)
-            if (a == ' ')
-                dem++;
-        return dem;
-    }
+        static void InMaTran(int[,] mat)
+        {
+            for (int i = 0; i < mat.GetLength(0); i++)
+            {
+                for (int j = 0; j < mat.GetLength(1); j++)
+                    Console.Write(mat[i, j] + "\t");
+                Console.WriteLine();
+            }
+        }
+        static void InHangVaTimMin(int[,] mat, int row)
+        {
+            if (row < 0 || row >= mat.GetLength(0)) return;
+            int min = mat[row, 0];
+            Console.Write($"Hang {row}: ");
+            for (int j = 0; j < mat.GetLength(1); j++)
+            {
+                Console.Write(mat[row, j] + " ");
+                if (mat[row, j] < min) 
+                    min = mat[row, j];
+            }
+            Console.WriteLine($" => Min cua hang {row}: {min}");
+        }
+        static void InCotVaTimMin(int[,] mat, int col)
+        {
+            if (col < 0 || col >= mat.GetLength(1)) return;
+            int min = mat[0, col];
+            Console.Write($"Cot {col}: ");
+            for (int i = 0; i < mat.GetLength(0); i++)
+            {
+                Console.Write(mat[i, col] + " ");
+                if (mat[i, col] < min) 
+                    min = mat[i, col];
+            }
+            Console.WriteLine($" => Min cua cot {col}: {min}");
+        }
 }
