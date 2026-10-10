@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 internal class BTVNbuoi5
 {
-    public static void Main6()
+    public static void Main5()
     {
         Console.OutputEncoding = Encoding.UTF8;
         Console.Write("Nhap so nguyen thu 1: ");
