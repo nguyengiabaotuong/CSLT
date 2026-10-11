@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 internal class BTVNbuoi6
     {
-        static void Main()
+        static void Main6()
         {
             Random rand = new Random();
             int[] arr = new int[10];
