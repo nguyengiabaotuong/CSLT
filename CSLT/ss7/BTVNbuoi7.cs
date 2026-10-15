@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 internal class BTVNbuoi7
 {
-    static void Main()
+    static void Main7()
     {
         Console.Write("Nhap vao mot chuoi bat ky: ");
         string str = Console.ReadLine();
